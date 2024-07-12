@@ -17,11 +17,23 @@ fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
     distance / time_elapsed
 }
 
+pub fn factorial(n: u32) -> u32 {
+    // Rust variables are immutable by default.
+    // In order to change the value of a variable, it must be declared mutable
+    let mut result: u32 = 1;
+    let mut i = n;
+    while i >= 1 {
+        result *= i;
+        i -= 1;
+    }
+    result
+}
+
 // The `#[cfg(test)]` attribute tells the compiler to only compile the code below when
 // running tests (i.e. when you run `cargo test`).
 #[cfg(test)]
 mod tests {
-    use crate::{compute, greeting, speed};
+    use crate::{compute, factorial, greeting, speed};
 
     #[test]
     fn test_welcome() {
@@ -40,5 +52,10 @@ mod tests {
     #[should_panic(expected = "The journey took no time at all, that's impossible!")]
     fn by_zero() {
         speed(0, 10, 0);
+    }
+
+    #[test]
+    fn test_factorial() {
+        assert_eq!(factorial(5), 120)
     }
 }
