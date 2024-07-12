@@ -2,7 +2,7 @@
 
 # important things to remember
 
-**profiles**
+**profiles** -
 A profile is a set of configuration options that can be used to customize the way Rust code is compiled.
 
 Cargo provides two built-in profiles: dev and release.
