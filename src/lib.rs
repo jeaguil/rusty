@@ -45,11 +45,22 @@ pub fn factorial_for(n: u32) -> u32 {
     result
 }
 
+pub fn factorial_saturated(n: u32) -> u32 {
+    let mut result: u32 = 1;
+    for i in 1..=n {
+        // Saturating multiplication to stop at the maximum value of u32
+        // rather than overflowing and wrapping around
+        // Since the profile setting is set to allow overflow, saturating here is required for the test.
+        result = result.saturating_mul(i);
+    }
+    result
+}
+
 // The `#[cfg(test)]` attribute tells the compiler to only compile the code below when
 // running tests (i.e. when you run `cargo test`).
 #[cfg(test)]
 mod tests {
-    use crate::{compute, factorial, factorial_for, greeting, speed};
+    use crate::{compute, factorial, factorial_for, factorial_saturated, greeting, speed};
 
     #[test]
     fn test_welcome() {
@@ -90,5 +101,10 @@ mod tests {
     // If overflow-checks is set to false, Rust will wrap around when an integer operation overflows.
     fn test_factorial_overflow_checks() {
         assert_eq!(factorial(20), 2_192_834_560);
+    }
+
+    #[test]
+    fn test_factorial_saturated() {
+        assert_eq!(factorial_saturated(20), u32::MAX)
     }
 }
