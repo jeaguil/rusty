@@ -79,4 +79,16 @@ mod tests {
     fn test_factorial_for() {
         assert_eq!(factorial_for(5), 120)
     }
+
+    #[test]
+    // Factorial of 20 is 2,432,902,008,176,640,000, which is larger than a u32 (max is 2,147,483,647)
+    // 2 options to handle interger overflow:
+    //    1. Reject the operation
+    //    2. Allow automatic promotion (allow the computation to wrap around)
+    // Rust gives the option to select through the overflow-checks profile setting.
+    // If overflow-checks is set to true, Rust will panic at runtime when an integer operation overflows.
+    // If overflow-checks is set to false, Rust will wrap around when an integer operation overflows.
+    fn test_factorial_overflow_checks() {
+        assert_eq!(factorial(20), 2_192_834_560);
+    }
 }
