@@ -1,15 +1,15 @@
-fn greeting() -> &'static str {
+pub fn greeting() -> &'static str {
     "Hello World!" // implicit return
 }
 
 // primitive types of input must match return type
-fn compute(a: u32, b: u32) -> u32 {
+pub fn compute(a: u32, b: u32) -> u32 {
     let x: u32 = 2; // explicit type
     let y = x; // compiler will infer the type based on the context
     a + b * y
 }
 
-fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
+pub fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
     if time_elapsed == 0 {
         panic!("The journey took no time at all, that's impossible!")
     }
@@ -60,7 +60,7 @@ pub fn factorial_saturated(n: u32) -> u32 {
 // running tests (i.e. when you run `cargo test`).
 #[cfg(test)]
 mod tests {
-    use crate::{compute, factorial, factorial_for, factorial_saturated, greeting, speed};
+    use super::*;
 
     #[test]
     fn test_welcome() {
